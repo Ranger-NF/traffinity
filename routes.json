@@ -1,0 +1,23 @@
+[
+  {
+    "origin": "Kottakkal",
+    "destination": "Tirur",
+    "distance_km": 15,
+    "duration_min": 22,
+    "traffic_delay_min": 8
+  },
+  {
+    "origin": "Kottakkal",
+    "destination": "Valanchery",
+    "distance_km": 12,
+    "duration_min": 18,
+    "traffic_delay_min": 2
+  },
+  {
+    "origin": "Kottakkal",
+    "destination": "Malappuram",
+    "distance_km": 23,
+    "duration_min": 30,
+    "traffic_delay_min": 5
+  }
+]
