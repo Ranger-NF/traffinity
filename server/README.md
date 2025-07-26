@@ -40,7 +40,8 @@
   {
     "type": "potholes",
     "location": "Main Street",
-    "id": 0
+    "id": 0,
+    lastModified: ISO Date & Time format
   }
 ]
 ```
@@ -56,7 +57,7 @@
 ```json
 {
   "type": "potholes", // or "accident", "congestion"
-  "location": "Highway 1 near exit 5"
+  "location": "Highway 1 near exit 5",
 }
 ```
 
@@ -66,7 +67,8 @@
 {
   "type": "potholes",
   "location": "Highway 1 near exit 5",
-  "id": 1
+  "id": 1,
+  lastModified: ISO Date & Time format
 }
 ```
 
@@ -82,7 +84,8 @@
 {
   "id": 1,
   "type": "accident",
-  "location": "Updated location"
+  "location": "Updated location",
+  lastModified: ISO Date & Time format
 }
 ```
 
@@ -124,7 +127,8 @@
 {
   "location": "NH Bypass near bridge",
   "type": "emergency",
-  "id": 4
+  "id": 4,
+  lastModified: ISO Date & Time format
 }
 ```
 

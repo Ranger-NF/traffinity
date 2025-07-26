@@ -76,6 +76,7 @@ app.post("/report", (req, res) => {
     type,
     location,
     id: reportId++,
+    lastModified: new Date().toISOString(),
   };
 
   reports.push(report);
@@ -103,6 +104,8 @@ app.put("/report", (req, res) => {
     return res.status(404).json({ error: "Report not found" });
   }
 
+  updated.lastModified = new Date().toISOString();
+
   io.emit("update_report", updated);
   res.json({ success: true });
 });
@@ -127,6 +130,7 @@ app.post("/emergency", (req, res) => {
     ...req.body,
     type: "emergency",
     id: reportId++,
+    lastModified: new Date().toISOString(),
   };
 
   reports.push(emergency);
