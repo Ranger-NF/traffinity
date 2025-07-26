@@ -15,6 +15,7 @@ const PORT = 3000;
 
 app.use(express.json());
 
+// Google's route matrix API replacement (As the API requires billing address)
 const loadRoutes = () => {
   const data = fs.readFileSync("./routes.json");
   const routes = JSON.parse(data);
@@ -32,10 +33,28 @@ const loadRoutes = () => {
   });
 };
 
-const alertTypes = ["potholes", "emergency", "congestion"];
+const alertTypes = ["potholes", "accident", "congestion"];
 
 let reports = [];
 let reportId = 0;
+
+const REPORTS_FILE = "./reports.json";
+
+const saveReports = () => {
+  fs.writeFileSync(REPORTS_FILE, JSON.stringify(reports, null, 2));
+};
+
+const loadReports = () => {
+  if (fs.existsSync(REPORTS_FILE)) {
+    const data = fs.readFileSync(REPORTS_FILE);
+    reports = JSON.parse(data);
+    if (reports.length > 0) {
+      reportId = Math.max(...reports.map((r) => r.id)) + 1;
+    }
+  }
+};
+
+setInterval(saveReports, 10_000); // Saving every 10 seconds
 
 app.get("/route", (req, res) => {
   const matrix = loadRoutes();
@@ -127,9 +146,11 @@ app.post("/resolve/emergency", (req, res) => {
   }
 
   const [removed] = reports.splice(reportIndex, 1);
-  io.emit("resolve_report", id);
+  io.emit("resolve_emergency", id);
   res.json({ success: true, removed });
 });
+
+loadReports();
 
 server.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
