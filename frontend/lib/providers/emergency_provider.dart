@@ -12,9 +12,12 @@ class EmergencyProvider extends ChangeNotifier {
 
   final ReportsServices _services = ReportsServices();
 
-  void onTapEmergency(){
+  void onTapEmergency() async{
     final ReportModel report = ReportModel(type: 'emergency',location: 'kottakkal');
-    _services.submitEmergency(report);
+     int? id = await _services.submitEmergency(report);
+     if(id != null){
+      _controller.setTheId(id);
+     }
     _isEmergency = !_isEmergency;
     notifyListeners();
   }
