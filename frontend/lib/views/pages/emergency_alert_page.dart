@@ -113,11 +113,11 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
                   children: [
                     ButtonsWidgets.rectangularButton(),
                     SizedBox(height: 120,),
-                    emergencyProvider.isEmergency ? ButtonsWidgets.isEmergencyButton(
+                    emergencyProvider.isEmergency ? 
+                    ButtonsWidgets.isNotEmergencyButton(onTap:() => emergencyProvider.onUnTapEmergency(context)) : 
+                    ButtonsWidgets.isEmergencyButton(
                       onTap: emergencyProvider.onTapEmergency
-                    ) : 
-                    ButtonsWidgets.isNotEmergencyButton(onTap:() => emergencyProvider.onUnTapEmergency(context))
-
+                    ) 
                   ],
                 ),
               )
