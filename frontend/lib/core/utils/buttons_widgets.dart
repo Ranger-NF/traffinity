@@ -88,26 +88,6 @@ class ButtonsWidgets {
         width: 307,
         height: 60,
         decoration: BoxDecoration(
-          color: LightColors.highPriority,
-          border: BoxBorder.all(width: AppTheme.borderWeight,color: LightColors.black),
-          borderRadius: BorderRadius.circular(50)
-        ),
-        child: Center(
-          child: Text("Emergency",style: AppTheme.h2Style,),
-        ),
-      ),
-    );
-  }
-
-  static GestureDetector isEmergencyButton({
-    required VoidCallback onTap
-  }){
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 307,
-        height: 60,
-        decoration: BoxDecoration(
           border: BoxBorder.all(width: AppTheme.borderWeight,color: LightColors.highPriority),
           borderRadius: BorderRadius.circular(50)
         ),
@@ -123,4 +103,25 @@ class ButtonsWidgets {
       ),
     );
   }
+
+  static GestureDetector isEmergencyButton({
+    required VoidCallback onTap
+  }){
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 307,
+        height: 60,
+        decoration: BoxDecoration(
+          color: LightColors.highPriority,
+          border: BoxBorder.all(width: AppTheme.borderWeight,color: LightColors.black),
+          borderRadius: BorderRadius.circular(50)
+        ),
+        child: Center(
+          child: Text("Emergency",style: AppTheme.h2Style,),
+        ),
+      ),
+    );
+  }
 }
+
