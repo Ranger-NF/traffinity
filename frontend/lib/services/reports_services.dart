@@ -60,6 +60,29 @@ class ReportsServices {
     }
   }
 
+    Future<bool> submitEmergency(ReportModel report) async {
+    final dio = Dio();
+    const String url = 'https://traffinity.onrender.com/emergency';
+
+
+    final reportData = jsonEncode(report.toJson());
+    try {
+      final response = await dio.post(url, data: reportData);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+
+        print("Report submitted successfully!");
+        return true;
+      } else {
+        print("Failed to submit report. Status code: ${response.statusCode}");
+        return false;
+      }
+    } catch (e) {
+      print("Error submitting report: $e");
+      return false;
+    }
+  }
+
   // Update the Report
   Future<bool> updateReport(ReportModelId report) async {
     final dio = Dio();

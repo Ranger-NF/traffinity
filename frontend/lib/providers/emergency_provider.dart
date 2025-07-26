@@ -9,8 +9,8 @@ class EmergencyProvider extends ChangeNotifier {
   final ReportsServices _services = ReportsServices();
 
   void onTapEmergency(){
-    final ReportModel report = ReportModel(type: 'emergency', location: '');
-    _services.submitReport(report);
+    final ReportModel report = ReportModel(type: 'emergency',location: 'kottakkal');
+    _services.submitEmergency(report);
     _isEmergency = !_isEmergency;
     notifyListeners();
   }
