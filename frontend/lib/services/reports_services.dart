@@ -8,7 +8,7 @@ class ReportsServices {
     final dio = Dio();
 
     try {
-      final response = await dio.get('http://http:localhost:3000/reports');
+      final response = await dio.get('https://traffinity.onrender.com/reports');
     
       if (response.statusCode == 200) {
         final data = response.data;
@@ -21,7 +21,7 @@ class ReportsServices {
           print('ID: ${report['id']}');
         }
 
-        return data;
+        return (data as List).map((item) => Map<String, dynamic>.from(item)).toList();
         
       } else {
         print('Error: ${response.statusCode}');
@@ -37,7 +37,7 @@ class ReportsServices {
 
   void submitReport() async {
     final dio = Dio();
-    const String url = 'http://localhost:3000/report';
+    const String url = 'https://traffinity.onrender.com/report';
 
     final Map<String, String> reportData = {
       "type": "potholes",
@@ -65,7 +65,7 @@ class ReportsServices {
   void updateReport() async {
     final dio = Dio();
 
-    const String url = 'http://localhost:3000/report';
+    const String url = 'https://traffinity.onrender.com/report';
 
     final Map<String, dynamic> updateData = {
       "id": 1,

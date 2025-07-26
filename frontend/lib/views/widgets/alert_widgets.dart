@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:frontend/core/colors/light_colors.dart';
@@ -12,41 +11,81 @@ class AlertWidgets {
     required String location,
     required String time,
     required IconData icon,
-    required Color color
-  }){
+    required Color color,
+  }) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.pushNamed(context, '/edit');
       },
       child: Container(
-        width: 358,
+        width: double.infinity,
         height: 68,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color:  time.isNotEmpty ? isEmergency ? color.withOpacity(0.2) : color : color,
-          border: BoxBorder.all(
+          color: time.isNotEmpty ? (isEmergency ? color.withOpacity(0.2) : color) : color,
+          border: Border.all(
             color: LightColors.black,
-            width: AppTheme.borderWeight
+            width: AppTheme.borderWeight,
           ),
         ),
-        child: Expanded(
-          flex: 2,
+        child: Center(
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(width: 10,),
-              Icon(icon,size: 35,color: LightColors.black,),
-              SizedBox(width: 15,),
-              Text(incident,style: AppTheme.h3Style,),
-              SizedBox(width: 10,),
-              Text("●"),
-              SizedBox(width: 10,),
-              Text(location,style: TextStyle(fontSize: 24,decoration: TextDecoration.underline,color: LightColors.black),),
-              SizedBox(width: 23,),
-              Text(time,style: AppTheme.h6Style,),
-              SizedBox(width: 0,),
-              if(time.isNotEmpty) Icon(TablerIcons.chevron_right,size: 20,)
-          ],
+              Icon(icon, size: 28, color: LightColors.black),
+              const SizedBox(width: 10),
+
+              Expanded(
+                flex: 5,
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        incident,
+                        style: const TextStyle(fontSize: 16),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    const Text("●"),
+                    const SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        location,
+                        style: TextStyle(
+                          fontSize: 14,
+                          decoration: TextDecoration.underline,
+                          color: LightColors.black,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Time and Chevron
+              Expanded(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        time,
+                        style: AppTheme.h6Style,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    const Icon(TablerIcons.chevron_right, size: 20),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-        )
       ),
     );
   }
