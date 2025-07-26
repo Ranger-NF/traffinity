@@ -8,7 +8,7 @@ class DropDownProvider extends ChangeNotifier{
     required this.options
   });
 
-  String _selectedLabel = 'Accident';
+  String _selectedLabel = 'accident';
   String get selectedLabel => _selectedLabel;
 
   IconData _selectedIcon = TablerIcons.car_crash;

@@ -18,7 +18,7 @@ class EmergencyAlertPage extends StatefulWidget {
 class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
 
   void emergencyButton(){
-    
+
   }
   
 
@@ -42,6 +42,7 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
                 children: [
                   Text("Friday", style: AppTheme.h6Style),
                   Text("Alerts!", style: AppTheme.h1Style),
+
                   Expanded(
                     child: !alertShowProvider.isAlert
                         ? Center(
@@ -67,7 +68,6 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
                                 itemCount: reports!.length,
                                 itemBuilder: (context, index) {
                                   final report = reports[index];
-                                  int id = report['id'];
                                   String isoTime = report['lastModified'];
                                   DateTime dateTime = DateTime.parse(isoTime).toLocal();
                                   String formattedTime = DateFormat('hh:mm a').format(dateTime);
