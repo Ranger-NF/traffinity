@@ -46,6 +46,7 @@ class _StateAlertPage extends State<AlertPage>{
                         spacing: 15,
                         children: [
                           SizedBox(height: 10,),
+                          
                           // AlertWidgets.alertBox(
                           //   isEmergency: false,
                           //   color: LightColors.highPriority,
