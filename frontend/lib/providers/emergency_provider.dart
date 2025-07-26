@@ -27,6 +27,7 @@ class EmergencyProvider extends ChangeNotifier {
       );
       return;
     } 
+    print("Id $id");
     _services.resolveEmergency(id);
     _isEmergency = !_isEmergency;
     notifyListeners();
