@@ -5,8 +5,10 @@ import 'package:frontend/core/theme/app_theme.dart';
 import 'package:frontend/core/utils/buttons_widgets.dart';
 import 'package:frontend/providers/alert_show_provider.dart';
 import 'package:frontend/providers/emergency_provider.dart';
+import 'package:frontend/services/reports_services.dart';
 import 'package:frontend/views/widgets/alert_widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class EmergencyAlertPage extends StatefulWidget {
   @override
@@ -14,6 +16,13 @@ class EmergencyAlertPage extends StatefulWidget {
 }
 
 class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
+
+  void emergencyButton(){
+    
+  }
+  
+
+  final ReportsServices _service = ReportsServices();
   @override
   Widget build(BuildContext context) {
     final emergencyProvider = Provider.of<EmergencyProvider>(context);
@@ -31,65 +40,68 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Friday",style: AppTheme.h6Style,),
-                  Text("Alerts!",style: AppTheme.h1Style,),
-                  alertShowProvider.isAlert ? Container(
-                      child: Column(
-                        spacing: 15,
-                        children: [
-                          SizedBox(height: 10,),
-                          if(emergencyProvider.isEmergency) AlertWidgets.alertBox(
-                            onTap: (){},
-                            isEmergency: emergencyProvider.isEmergency,
-                            context: context,
-                            icon: TablerIcons.activity_heartbeat,
-                            incident: "Make Way",
-                            location: "Emergency",
-                            time: "",
-                            color: LightColors.highPriority
-                          ),
-                          AlertWidgets.alertBox(
-                            onTap: (){},
-                            isEmergency: emergencyProvider.isEmergency,
-                            color: LightColors.highPriority,
-                            icon: TablerIcons.car_crash,
-                            incident: "Accident",
-                            location: "Kottakkal",
-                            time: "1 Hour",
-                            context: context
-                          ),
-                          AlertWidgets.alertBox(
-                            onTap: (){},
-                            isEmergency: emergencyProvider.isEmergency,
-                            color: LightColors.highPriority,
-                            icon: TablerIcons.car_crash,
-                            incident: "Accident",
-                            location: "Kottakkal",
-                            time: "1 Hour",
-                            context: context
-                          ),
-                          AlertWidgets.alertBox(
-                            onTap: (){},
-                            isEmergency: emergencyProvider.isEmergency,
-                            color: LightColors.highPriority,
-                            icon: TablerIcons.car_crash,
-                            incident: "Accident",
-                            location: "Kottakkal",
-                            time: "1 Hour",
-                            context: context
+                  Text("Friday", style: AppTheme.h6Style),
+                  Text("Alerts!", style: AppTheme.h1Style),
+                  Expanded(
+                    child: !alertShowProvider.isAlert
+                        ? Center(
+                            child: Text("No Alerts!", style: AppTheme.h2Style),
                           )
-                        ],
-                      ),
-                    ) : 
-                    Center(
-                      child: SizedBox(
-                        width: 300,
-                        height: 250,
-                        child: Center(
-                          child: Text("No Alerts!",style: AppTheme.h2Style,),
-                        ),
-                      ),
-                    )
+                        : FutureBuilder<List<Map<String, dynamic>>?>(
+                            future: _service.getReports(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Center(child: CircularProgressIndicator());
+                              } else if (snapshot.hasError) {
+                                return Center(child: Text('Error: ${snapshot.error}'));
+                              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                return Center(child: Text('No reports found.'));
+                              }
+
+                              final reports = snapshot.data;
+                              if(reports == null){
+                                alertShowProvider.changeAlertScreen();
+                              }
+                              return ListView.builder(
+                                padding: const EdgeInsets.all(16),
+                                itemCount: reports!.length,
+                                itemBuilder: (context, index) {
+                                  final report = reports[index];
+                                  int id = report['id'];
+                                  String isoTime = report['lastModified'];
+                                  DateTime dateTime = DateTime.parse(isoTime).toLocal();
+                                  String formattedTime = DateFormat('hh:mm a').format(dateTime);
+
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 12.0),
+                                    child: AlertWidgets.alertBox(
+                                      onTap: report['type'] == "emergency" ? (){} : () {},
+                                      isEmergency: false,
+                                      context: context,
+                                      incident: report['type'],
+                                      location: report['location'],
+                                      time: formattedTime,
+                                      icon: report['type'] == "potholes"
+                                          ? TablerIcons.traffic_cone
+                                          : report['type'] == "accident"
+                                              ? TablerIcons.car_crash :
+                                              report['type'] == "emergency" ?
+                                              TablerIcons.activity_heartbeat
+                                              : TablerIcons.clock_hour_8,
+                                      color: report['type'] == "potholes"
+                                          ? LightColors.lowPriority
+                                          : report['type'] == "accident"
+                                              ? LightColors.highPriority :
+                                              report["type"] == "emergency" ? 
+                                              LightColors.highPriority
+                                              : LightColors.mediumPriority,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                  )
                 ],
               ),
             ),
