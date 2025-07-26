@@ -144,6 +144,36 @@ class ReportsServices {
     }
 
   }
+  
+    // Resolve the Report
+  Future<bool> resolveEmergency(int id) async{
+    final dio = Dio();
+    const String url = 'https://traffinity.onrender.com/resolve/emergency';
 
+    Map<String,int> data = {
+      "id": id
+    };
+
+    final jsonData = jsonEncode(data);
+
+    try{
+      final response = await dio.post(
+        url,
+        data: jsonData
+      );
+
+      if (response.statusCode == 200) {
+        print("Report Resolved successfully!");
+        return true;
+      } else {
+        print("Failed to resolve report. Status code: ${response.statusCode}");
+        return false;
+      }
+    } catch (e) {
+      print("Error resolve report: $e");
+      return false;
+    }
+
+  }
 }
 

@@ -116,7 +116,7 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
                     emergencyProvider.isEmergency ? ButtonsWidgets.isEmergencyButton(
                       onTap: emergencyProvider.onTapEmergency
                     ) : 
-                    ButtonsWidgets.isNotEmergencyButton(onTap: emergencyProvider.onTapEmergency)
+                    ButtonsWidgets.isNotEmergencyButton(onTap:() => emergencyProvider.onUnTapEmergency(context))
 
                   ],
                 ),
