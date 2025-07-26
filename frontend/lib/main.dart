@@ -12,6 +12,7 @@ void main() {
     {'label': 'accident', 'icon': TablerIcons.car_crash},
     {'label': 'potholes', 'icon': TablerIcons.traffic_cone},
     {'label': 'congestion', 'icon': TablerIcons.clock_hour_8},
+    {'label': 'emergency', 'icon': TablerIcons.activity_heartbeat}
   ];
   runApp(
     MultiProvider(

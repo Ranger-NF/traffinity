@@ -41,8 +41,8 @@ class ReportsServices {
     final dio = Dio();
     const String url = 'https://traffinity.onrender.com/report';
 
-    final reportData = jsonEncode(report.toJson());
 
+    final reportData = jsonEncode(report.toJson());
     try {
       final response = await dio.post(url, data: reportData);
 
