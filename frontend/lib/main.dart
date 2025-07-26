@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 
 void main() {
   final List<Map<String, dynamic>> options = [
-    {'label': 'Accident', 'icon': TablerIcons.car_crash},
-    {'label': 'pothholes', 'icon': TablerIcons.traffic_cone},
+    {'label': 'accident', 'icon': TablerIcons.car_crash},
+    {'label': 'potholes', 'icon': TablerIcons.traffic_cone},
     {'label': 'congestion', 'icon': TablerIcons.clock_hour_8},
   ];
   runApp(

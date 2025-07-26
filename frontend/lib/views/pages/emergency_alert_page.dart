@@ -39,6 +39,7 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
                         children: [
                           SizedBox(height: 10,),
                           if(emergencyProvider.isEmergency) AlertWidgets.alertBox(
+                            onTap: (){},
                             isEmergency: emergencyProvider.isEmergency,
                             context: context,
                             icon: TablerIcons.activity_heartbeat,
@@ -48,6 +49,7 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
                             color: LightColors.highPriority
                           ),
                           AlertWidgets.alertBox(
+                            onTap: (){},
                             isEmergency: emergencyProvider.isEmergency,
                             color: LightColors.highPriority,
                             icon: TablerIcons.car_crash,
@@ -57,6 +59,7 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
                             context: context
                           ),
                           AlertWidgets.alertBox(
+                            onTap: (){},
                             isEmergency: emergencyProvider.isEmergency,
                             color: LightColors.highPriority,
                             icon: TablerIcons.car_crash,
@@ -66,6 +69,7 @@ class _StateEmergencyAlertPage extends State<EmergencyAlertPage>{
                             context: context
                           ),
                           AlertWidgets.alertBox(
+                            onTap: (){},
                             isEmergency: emergencyProvider.isEmergency,
                             color: LightColors.highPriority,
                             icon: TablerIcons.car_crash,

@@ -4,6 +4,10 @@ import 'package:frontend/core/theme/app_theme.dart';
 import 'package:frontend/core/utils/buttons_widgets.dart';
 import 'package:frontend/core/utils/text_field_widgets.dart';
 import 'package:frontend/core/utils/drop_down_widget.dart';
+import 'package:frontend/models/report_model.dart';
+import 'package:frontend/providers/drop_down_provider.dart';
+import 'package:frontend/services/reports_services.dart';
+import 'package:provider/provider.dart';
 
 class AddAlertPage extends StatefulWidget {
   @override
@@ -12,12 +16,28 @@ class AddAlertPage extends StatefulWidget {
 
 class _StateAddAlertPage extends State<AddAlertPage>{
 
-  void onTapAddButton(){
+  final TextEditingController locationCtrl = TextEditingController();
+  final ReportsServices _service = ReportsServices();
+
+
+  void onTapAddButton(DropDownProvider provider) async{
+    ReportModel report = ReportModel(type: provider.selectedLabel, location: locationCtrl.text.trim());
+    bool isSuccess = await _service.submitReport(report);
+    if(isSuccess){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Report Submitted"))
+      );
+    } else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Failed"))
+      );
+    }
     Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<DropDownProvider>(context);
     return Scaffold(
       backgroundColor: LightColors.primary,
       body: SingleChildScrollView(
@@ -36,12 +56,14 @@ class _StateAddAlertPage extends State<AddAlertPage>{
                 SizedBox(height: 30,),
 
 
-                TextFieldWidgets.locationField(),
+                TextFieldWidgets.locationField(
+                  controller: locationCtrl
+                ),
                 SizedBox(height: 150,),
 
                 Center(
                   child: ButtonsWidgets.roundedButton(
-                    onTap: () => onTapAddButton(),
+                    onTap: () => onTapAddButton(provider),
                     width: 258,
                     height: 69,
                     text: "Add Alert"

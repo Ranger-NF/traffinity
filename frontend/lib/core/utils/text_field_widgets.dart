@@ -4,7 +4,9 @@ import 'package:frontend/core/colors/light_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
 
 class TextFieldWidgets {
-  static Container locationField(){
+  static Container locationField({
+    required TextEditingController controller
+  }){
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       width: 340,
@@ -22,6 +24,7 @@ class TextFieldWidgets {
           SizedBox(width: 10,),
           Expanded(
             child: TextField(
+              controller: controller,
               style: TextStyle(
                 fontSize: 30
               ),

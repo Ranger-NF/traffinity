@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:frontend/core/colors/light_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
 import 'package:frontend/providers/drop_down_provider.dart';
@@ -68,7 +69,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                 ),
               ],
             ),
-            Icon(Icons.arrow_drop_down),
+            Icon(TablerIcons.chevron_down,size: 28,),
           ],
         ),
       ),

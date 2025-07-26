@@ -5,6 +5,7 @@ import 'package:frontend/core/theme/app_theme.dart';
 
 class AlertWidgets {
   static GestureDetector alertBox({
+    required VoidCallback onTap,
     required bool isEmergency,
     required BuildContext context,
     required String incident,
@@ -14,9 +15,7 @@ class AlertWidgets {
     required Color color,
   }) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/edit');
-      },
+      onTap: onTap,
       child: Container(
         width: double.infinity,
         height: 68,

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:frontend/models/report_model.dart';
+import 'dart:convert';
 
 
 class ReportsServices {
@@ -35,43 +37,36 @@ class ReportsServices {
 
   // post the report
 
-  void submitReport() async {
+  Future<bool> submitReport(ReportModel report) async {
     final dio = Dio();
     const String url = 'https://traffinity.onrender.com/report';
 
-    final Map<String, String> reportData = {
-      "type": "potholes",
-      "location": "Highway 1 near exit 5"
-    };
+    final reportData = jsonEncode(report.toJson());
 
     try {
       final response = await dio.post(url, data: reportData);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final responseData = response.data;
-        print("Report submitted successfully!");
-        print("Response: $responseData");
 
-        print("ID: ${responseData['id']}");
+        print("Report submitted successfully!");
+        return true;
       } else {
         print("Failed to submit report. Status code: ${response.statusCode}");
+        return false;
       }
     } catch (e) {
       print("Error submitting report: $e");
+      return false;
     }
   }
 
   // Update the Report
-  void updateReport() async {
+  Future<bool> updateReport(ReportModelId report) async {
     final dio = Dio();
 
     const String url = 'https://traffinity.onrender.com/report';
 
-    final Map<String, dynamic> updateData = {
-      "id": 1,
-      "type": "accident", 
-      "location": "Updated location"
-    };
+    final updateData = jsonEncode(report.toJson());
 
     try {
       final response = await dio.put(
@@ -85,12 +80,47 @@ class ReportsServices {
       if (response.statusCode == 200) {
         print("Report updated successfully!");
         print("Response: ${response.data}");
+        return true;
       } else {
         print("Failed to update report. Status code: ${response.statusCode}");
+        return false;
       }
     } catch (e) {
       print("Error updating report: $e");
+      return false;
     }
   }
 
+  // Resolve the Report
+  Future<bool> resolveReport(int id) async{
+    final dio = Dio();
+    const String url = 'https://traffinity.onrender.com/resolve';
+
+    Map<String,int> data = {
+      "id": id
+    };
+
+    final jsonData = jsonEncode(data);
+
+    try{
+      final response = await dio.post(
+        url,
+        data: jsonData
+      );
+
+      if (response.statusCode == 200) {
+        print("Report Resolved successfully!");
+        return true;
+      } else {
+        print("Failed to resolve report. Status code: ${response.statusCode}");
+        return false;
+      }
+    } catch (e) {
+      print("Error resolve report: $e");
+      return false;
+    }
+
+  }
+
 }
+
