@@ -6,6 +6,7 @@ import 'package:frontend/providers/alert_show_provider.dart';
 import 'package:frontend/providers/drop_down_provider.dart';
 import 'package:frontend/providers/emergency_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:frontend/providers/user_provider.dart';
 
 void main() {
   final List<Map<String, dynamic>> options = [
@@ -19,7 +20,8 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AlertShowProvider()),
         ChangeNotifierProvider(create: (_) => EmergencyProvider()),
-        ChangeNotifierProvider(create: (_) => DropDownProvider(options: options))
+        ChangeNotifierProvider(create: (_) => DropDownProvider(options: options)),
+        ChangeNotifierProvider(create: (_) => UserProvider())
       ],
       child: MyApp(),
     )

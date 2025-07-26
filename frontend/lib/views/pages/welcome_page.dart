@@ -3,6 +3,8 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:frontend/core/colors/light_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
 import 'package:frontend/views/widgets/welcome_widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:frontend/providers/user_provider.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -15,12 +17,15 @@ class _StateWelcomePage extends State<WelcomePage>{
     Navigator.pushNamed(context, '/alert');
   }
 
-  void onTapEmergency(BuildContext context){
+  void onTapEmergency(BuildContext context,  UserProvider provider){
     Navigator.pushNamed(context, '/emergency_alert');
+
+    provider.changeUser();
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -56,7 +61,7 @@ class _StateWelcomePage extends State<WelcomePage>{
                     WelcomeWidgets.welcomeButton(
                       icon: TablerIcons.activity_heartbeat,
                       title: "Emergency Service",
-                      onTap: () => onTapEmergency(context)
+                      onTap: () => onTapEmergency(context, provider)
                     )
                   ],
                 ),

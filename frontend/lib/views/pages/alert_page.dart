@@ -83,7 +83,7 @@ class _StateAlertPage extends State<AlertPage> {
                                         return Padding(
                                           padding: const EdgeInsets.only(bottom: 12.0),
                                           child: AlertWidgets.alertBox(
-                                            onTap: () => clickAlertBox(context, id),
+                                            onTap: report['type'] == "emergency" ? (){} : () => clickAlertBox(context, id),
                                             isEmergency: false,
                                             context: context,
                                             incident: report['type'],

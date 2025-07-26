@@ -28,7 +28,7 @@ class WelcomeWidgets {
             Icon(icon,size: 28,),
             SizedBox(width: 10,),
             Text(title,style: AppTheme.h2Style,),
-            title == "Normal User" ? SizedBox(width: 120,) : SizedBox(width: 46,),
+            title == "Normal User" ? SizedBox(width: 90,) : SizedBox(width: 20,),
             Icon(TablerIcons.chevron_right,size: 30,)
           ],
         ),

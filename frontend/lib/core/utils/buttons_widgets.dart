@@ -2,11 +2,27 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:frontend/core/colors/light_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ButtonsWidgets {
+  static Future<void> _launchGoogleMaps(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      // Handle the case where Google Maps app or a browser cannot be launched
+      throw 'Could not launch $url';
+    }
+  }
 
   static GestureDetector rectangularButton(){
+    final String lat = '10.999565'; // Example latitude
+    final String lng = '75.991666'; // Example longitude
+    final String url = 'https://www.google.com/maps/search/?api=1&query=$lat,$lng';
     return GestureDetector(
+      onTap: (){
+         _launchGoogleMaps(url);
+      },
       child: Container(
         decoration: BoxDecoration(
           color: LightColors.primary,

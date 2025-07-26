@@ -33,6 +33,9 @@ class TextFieldWidgets {
               cursorHeight: 45,
               decoration: InputDecoration(
                 hintText: "Kottakkal",
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                ),
                 border: InputBorder.none,
               ),
             ),

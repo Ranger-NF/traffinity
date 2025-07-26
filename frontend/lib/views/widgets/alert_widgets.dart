@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:frontend/core/colors/light_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
+import 'package:frontend/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class AlertWidgets {
   static GestureDetector alertBox({
@@ -14,6 +16,7 @@ class AlertWidgets {
     required IconData icon,
     required Color color,
   }) {
+    final provider = Provider.of<UserProvider>(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -78,7 +81,7 @@ class AlertWidgets {
                       ),
                     ),
                     const SizedBox(width: 6),
-                    const Icon(TablerIcons.chevron_right, size: 20),
+                    ((incident == "emergency" && !provider.isUser) || !(incident == "emergency" )) ? const Icon(TablerIcons.chevron_right, size: 20) : Container(),
                   ],
                 ),
               ),
