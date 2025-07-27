@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Bingo',
+      title: 'Traffinity',
       theme: AppTheme.appTheme,
       routes: AppRoute.appRoute,
     );
